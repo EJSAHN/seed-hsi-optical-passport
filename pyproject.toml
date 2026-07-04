@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seed-hsi-optical-passport"
+version = "0.1.0"
+description = "Block-aware optical-passport validation for seed hyperspectral imaging of sorghum germplasm"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Research team"}]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.10",
+    "scikit-learn>=1.3",
+    "openpyxl>=3.1",
+]
+
+[project.scripts]
+seed-hsi-passport = "seed_hsi_optical_passport.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
