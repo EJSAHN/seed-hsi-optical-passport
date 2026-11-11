@@ -15,7 +15,9 @@ This repository reproduces the core optical-passport source-classification, spar
 
 ## Required input files
 
-Place the processed source tables in a single input directory. The command-line tool searches both the input directory itself and common subdirectories.
+Processed inputs, analysis settings, and the script for reproducing the reported core tables are provided in **Additional file 3 (Reproducibility inputs)**, `Additional_file_3_Reproducibility_Inputs.zip`, accompanying the study. These inputs are distributed separately from this code repository. Use the supplied `processed_inputs` directory unchanged when following the reported-table instructions below.
+
+For other runs, place the processed source tables in a single input directory. The command-line tool searches both the input directory itself and common subdirectories.
 
 Required:
 
@@ -47,7 +49,19 @@ conda activate seed-hsi-passport
 python -m pip install -e .
 ```
 
-## Run the analysis
+## Reproduce the reported core tables
+
+The analysis code used for the reported tables is recorded at commit `b31dd9f81c65cd2e57e8cc69f615cb475c7fedd6`. Install that version of this package, then extract Additional file 3. In the same Python environment, run the following command from the extracted directory containing `run_reported_tables.py`:
+
+```text
+python run_reported_tables.py --output results
+```
+
+The script reads the supplied inputs and settings and fixes the metadata-control predictor order to the order used for the reported estimates. It does not change predictor values, source labels, validation splits, model settings, or spectral analyses. Use this script rather than the generic command below when reproducing the reported metadata-control metrics; changing predictor order can produce small numerical differences. Additional file 3 documents the ordering and numerical comparison.
+
+An installation and input check is available with `--fast`; it does not use the full analysis settings.
+
+## Run the analysis with other processed inputs
 
 ```bash
 seed-hsi-passport \
@@ -95,7 +109,11 @@ Reflectance-derivative features are computed from adjacent reflectance bands. Fe
 
 ## Reproducibility notes
 
-All random procedures use an explicit seed. The default settings match the reported validation analysis: 50 repeated random stratified cross-validations, 200 label permutations with two repeated CV runs per permutation, 300 bootstrap stability iterations, and minimal-band models with 1, 3, 5, 10, and 20 selected derivative bands.
+All random procedures use an explicit seed. The reported core analysis uses 50 repeated random stratified five-fold cross-validations, 200 label permutations with two repeated CV runs per permutation, 300 class-stratified subsampling iterations without replacement, and minimal-band models with 1, 3, 5, 10, and 20 selected derivative bands.
+
+The command-line option retains the name `--bootstrap` for compatibility, but it specifies **subsampling without replacement**, not bootstrap resampling with replacement. Each iteration samples approximately 80% of each source class and records the ten highest-ranked derivative features. Reported selection counts combine these selections with selections across all minimal-band training folds and model sizes. They are therefore aggregate counts, not counts out of 300 or selection probabilities.
+
+For the reported estimates, use the settings and metadata-column ordering supplied with Additional file 3 as described above.
 
 ## Repository structure
 
