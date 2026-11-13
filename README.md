@@ -15,7 +15,7 @@ This repository reproduces the core optical-passport source-classification, spar
 
 ## Required input files
 
-Processed inputs, analysis settings, and the script for reproducing the reported core tables are provided in **Additional file 3 (Reproducibility inputs)**, `Additional_file_3_Reproducibility_Inputs.zip`, accompanying the study. These inputs are distributed separately from this code repository. Use the supplied `processed_inputs` directory unchanged when following the reported-table instructions below.
+Processed inputs, analysis settings, and the script for reproducing the reported core tables are provided in **Supplementary Data S2 (Reproducibility inputs)**, `Supplementary_Data_S2_Reproducibility_Inputs.zip`, accompanying the study. These inputs are distributed separately from this code repository. Use the supplied `processed_inputs` directory unchanged when following the reported-table instructions below.
 
 For other runs, place the processed source tables in a single input directory. The command-line tool searches both the input directory itself and common subdirectories.
 
@@ -51,13 +51,13 @@ python -m pip install -e .
 
 ## Reproduce the reported core tables
 
-The analysis code used for the reported tables is recorded at commit `b31dd9f81c65cd2e57e8cc69f615cb475c7fedd6`. Install that version of this package, then extract Additional file 3. In the same Python environment, run the following command from the extracted directory containing `run_reported_tables.py`:
+The analysis code used for the reported tables is recorded at commit `b31dd9f81c65cd2e57e8cc69f615cb475c7fedd6`. Install that version of this package, then extract Supplementary Data S2. In the same Python environment, run the following command from the extracted directory containing `run_reported_tables.py`:
 
 ```text
 python run_reported_tables.py --output results
 ```
 
-The script reads the supplied inputs and settings and fixes the metadata-control predictor order to the order used for the reported estimates. It does not change predictor values, source labels, validation splits, model settings, or spectral analyses. Use this script rather than the generic command below when reproducing the reported metadata-control metrics; changing predictor order can produce small numerical differences. Additional file 3 documents the ordering and numerical comparison.
+The script reads the supplied inputs and settings and fixes the metadata-control predictor order to the order used for the reported estimates. It does not change predictor values, source labels, validation splits, model settings, or spectral analyses. Use this script rather than the generic command below when reproducing the reported metadata-control metrics; changing predictor order can produce small numerical differences. Supplementary Data S2 documents the ordering and numerical comparison.
 
 An installation and input check is available with `--fast`; it does not use the full analysis settings.
 
@@ -113,7 +113,7 @@ All random procedures use an explicit seed. The reported core analysis uses 50 r
 
 The command-line option retains the name `--bootstrap` for compatibility, but it specifies **subsampling without replacement**, not bootstrap resampling with replacement. Each iteration samples approximately 80% of each source class and records the ten highest-ranked derivative features. Reported selection counts combine these selections with selections across all minimal-band training folds and model sizes. They are therefore aggregate counts, not counts out of 300 or selection probabilities.
 
-For the reported estimates, use the settings and metadata-column ordering supplied with Additional file 3 as described above.
+For the reported estimates, use the settings and metadata-column ordering supplied with Supplementary Data S2 as described above.
 
 ## Repository structure
 
